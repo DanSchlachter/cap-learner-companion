@@ -1,7 +1,7 @@
 # Installation
 
 1. Run `git clone https://github.com/DanSchlachter/cap-learner-companion.git`.
-2. Prepare the learner-companiopn with `cd learner-companion && npm i`.
+2. Prepare the learner-companiopn with `cd cap-learner-companion/learner-companion && npm i`.
 Run the learner companion project with `npm run start` .
 3. Go to the incidents-app and open the `README.md` that will show you your current task.
 
