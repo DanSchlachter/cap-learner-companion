@@ -1,0 +1,20 @@
+{
+  "name": "@cap-js/learner-companion",
+  "version": "0.0.1",
+  "description": "Interactive learning app for CAP",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@sap/cds": "^7.8.0",
+    "chai": "^4.4.1",
+    "chai-as-promised": "^7.1.1",
+    "chai-subset": "^1.6.0",
+    "mocha": "^10.4.0",
+    "node-watch": "^0.7.4"
+  }
+}

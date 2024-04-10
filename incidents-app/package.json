@@ -1,0 +1,22 @@
+{
+  "name": "incidents-app",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/attachments": "github:cap-js/attachments",
+    "@sap/cds": "^7",
+    "express": "^4",
+    "jest-cli": "^29.7.0",
+    "mocha": "^10.4.0",
+    "node-watch": "^0.7.4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1"
+  },
+  "scripts": {
+    "start": "cds-serve"
+  }
+}
