@@ -1,14 +1,27 @@
-var Mocha = require("mocha");
-var fs = require("fs");
+const Mocha = require("mocha");
+const fs = require("fs");
 const { join } = require("path");
+const watch = require("node-watch");
+
+const projectDir = join(__dirname, "../incidents-app");
+const exercisesDir = join(__dirname, "/x");
+
 let current_exercise = 1;
 let failed = false;
 
-const test = (exercise) => {
+// Add SIGINT event listener only if none exists
+if (!process.listenerCount('SIGINT')) {
+  process.on('SIGINT', () => {
+      console.log('Received SIGINT signal, exiting...');
+      process.exit(0);
+  });
+}
+
+const testExercise = (exercise) => {
   copyExerciseText(exercise);
   console.log(`Testing exercise ${exercise}`);
   var mocha = new Mocha({});
-  mocha.addFile(join(__dirname, `/x/${exercise}/test.js`));
+  mocha.addFile(join(exercisesDir, `${exercise}/test.js`));
   mocha.bail(true);
   //mocha.reporter('markdown', { output: 'mocha.md' });
 
@@ -19,7 +32,7 @@ const test = (exercise) => {
     })
     .on("fail", function (test, err) {
       console.log("Test fail");
-      fs.appendFileSync(join(project, "README.md"), "\n" + err.message)
+      fs.appendFileSync(join(projectDir, "README.md"), "\n" + err.message)
       failed = true;
     })
     .on("end", function () {
@@ -33,7 +46,7 @@ const test = (exercise) => {
         copyFile(join(__dirname, "/x/bye.md"));
       } else {
         current_exercise++;
-        test(current_exercise);
+        testExercise(current_exercise);
       }
     })
     .on("error", function (err) {
@@ -43,23 +56,20 @@ const test = (exercise) => {
 ;
 };
 
-var watch = require("node-watch");
-const project = join(__dirname, "../incidents-app");
-
-watch(project, { recursive: true, filter: f => !/README.md/.test(f) }, function (evt, name) {
+watch(projectDir, { recursive: true, filter: f => !/README.md/.test(f) }, function (evt, name) {
   //run tests
   console.log("File changed: ", name);
   failed = false;
-  test(current_exercise);
+  testExercise(current_exercise);
 });
 
 const copyExerciseText = (exercise) => {
   copyFile(join(__dirname, `/x/${exercise}/task.md`));
 }
 const copyFile = (file) => {
-  fs.copyFileSync(file, join(project, `README.md`));
+  fs.copyFileSync(file, join(projectDir, `README.md`));
 }
-test(current_exercise);
+testExercise(current_exercise);
 copyExerciseText(current_exercise);
 
 const getNumberOfExercises = (source) => getDirectories(source).length;
