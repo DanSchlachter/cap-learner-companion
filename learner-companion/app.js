@@ -6,7 +6,7 @@ const watch = require("node-watch");
 const projectDir = join(__dirname, "../incidents-app");
 const exercisesDir = join(__dirname, "/x");
 
-let current_exercise = 1;
+let currentExercise = 1;
 let failed = false;
 
 // Add SIGINT event listener only if none exists
@@ -18,7 +18,7 @@ if (!process.listenerCount('SIGINT')) {
 }
 
 const testExercise = (exercise) => {
-  copyExerciseText(exercise);
+  showExerciseText(exercise);
   console.log(`Testing exercise ${exercise}`);
   var mocha = new Mocha({});
   mocha.addFile(join(exercisesDir, `${exercise}/test.js`));
@@ -43,10 +43,10 @@ const testExercise = (exercise) => {
         console.log(`Exercise ${exercise} failed!`);
       } else if (exercise === x) {
         console.log("All tests passed! Congratulations!");
-        copyFile(join(__dirname, "/x/bye.md"));
+        showFile(join(exercisesDir, "/bye.md"));
       } else {
-        current_exercise++;
-        testExercise(current_exercise);
+        currentExercise++;
+        testExercise(currentExercise);
       }
     })
     .on("error", function (err) {
@@ -60,17 +60,17 @@ watch(projectDir, { recursive: true, filter: f => !/README.md/.test(f) }, functi
   //run tests
   console.log("File changed: ", name);
   failed = false;
-  testExercise(current_exercise);
+  testExercise(currentExercise);
 });
 
-const copyExerciseText = (exercise) => {
-  copyFile(join(__dirname, `/x/${exercise}/task.md`));
+const showExerciseText = (exercise) => {
+  showFile(join(__dirname, `/x/${exercise}/task.md`));
 }
-const copyFile = (file) => {
+const showFile = (file) => {
   fs.copyFileSync(file, join(projectDir, `README.md`));
 }
-testExercise(current_exercise);
-copyExerciseText(current_exercise);
+testExercise(currentExercise);
+showExerciseText(currentExercise);
 
 const getNumberOfExercises = (source) => getDirectories(source).length;
 
