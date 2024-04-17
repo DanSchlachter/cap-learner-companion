@@ -10,6 +10,7 @@ const test = (exercise) => {
   var mocha = new Mocha({});
   mocha.addFile(join(__dirname, `/x/${exercise}/test.js`));
   mocha.bail(true);
+  //mocha.reporter('markdown', { output: 'mocha.md' });
 
   mocha
     .run()
@@ -36,6 +37,7 @@ const test = (exercise) => {
       }
     })
     .on("error", function (err) {
+      console.log("Mocha Error");
       console.log(err);
     })
 ;
@@ -55,7 +57,7 @@ const copyExerciseText = (exercise) => {
   copyFile(join(__dirname, `/x/${exercise}/task.md`));
 }
 const copyFile = (file) => {
-  fs.copyFileSync(join(file), join(project, `README.md`));
+  fs.copyFileSync(file, join(project, `README.md`));
 }
 test(current_exercise);
 copyExerciseText(current_exercise);
