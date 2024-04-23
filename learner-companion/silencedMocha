@@ -1,0 +1,15 @@
+class SilentReporter {
+    constructor(runner) {
+        runner.on('start', () => {});
+        runner.on('suite', () => {});
+        runner.on('suite end', () => {});
+        runner.on('test', () => {});
+        runner.on('test end', () => {});
+        runner.on('pass', () => {});
+        runner.on('fail', () => {});
+        runner.on('pending', () => {});
+        runner.on('end', () => {});
+    }
+}
+
+module.exports = SilentReporter;
