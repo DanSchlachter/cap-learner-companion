@@ -1,6 +1,5 @@
 process.env.CDS_TEST_SILENT='y'
 const cds = require('@sap/cds/lib')
-const exp = require('constants')
 const { join } = require('path')
 const project = join(__dirname, '../../../incidents-app')
 const { expect } = cds.test(project)
