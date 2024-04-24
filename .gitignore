@@ -35,3 +35,6 @@ mta_archives/
 
 
 package-lock.json
+
+# Companion app
+companion.md

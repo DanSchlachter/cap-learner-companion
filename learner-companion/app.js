@@ -48,7 +48,7 @@ const testExercise = exercise => {
     })
     .on('fail', function (test, err) {
       console.log('Test fail')
-      fs.appendFileSync(join(projectDir, 'README.md'), '\n' + err.message)
+      fs.appendFileSync(join(projectDir, 'companion.md'), '\n' + err.message)
       failed = true
     })
     .on('end', function () {
@@ -71,7 +71,7 @@ const testExercise = exercise => {
     })
 }
 
-watch(projectDir, { recursive: true, filter: f => !/README.md/.test(f) }, function (evt, name) {
+watch(projectDir, { recursive: true, filter: f => !/companion.md/.test(f) }, function (evt, name) {
   //run tests
   console.log('File changed: ', name)
   failed = false
@@ -82,7 +82,7 @@ const showExerciseText = exercise => {
   showFile(join(__dirname, `/x/${exercise}/task.md`))
 }
 const showFile = file => {
-  fs.copyFileSync(file, join(projectDir, `README.md`))
+  fs.copyFileSync(file, join(projectDir, `companion.md`))
 }
 
 testExercise(currentExercise)
