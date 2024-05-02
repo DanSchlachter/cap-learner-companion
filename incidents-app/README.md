@@ -1,1 +1,0 @@
-Start the learner companion with `cd learner-companion && npm run start` - then this file will update!
